@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Inter&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins";
+  @apply bg-neutral-100
+}
+
+.font-DM-Serif {
+  font-family: "DM Serif Text";
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+} */
