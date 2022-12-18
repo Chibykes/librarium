@@ -33,17 +33,17 @@ export default function Dashboard() {
           <div className='space-y-8 max-w-4xl mx-auto'>
             <div className='grid grid-cols-3 gap-4'>
               <div className='relative p-6 space-y-1 bg-app-primary text-white rounded-xl'>
-                <p className='text-6xl'>30</p>
+                <p className='text-6xl'>{books.length}</p>
                 <p className='font-bold text-sm'>Total Books</p>
                 <ImBooks className='absolute top-6 right-4 text-6xl text-white opacity-40' />
               </div>
               <div className='relative p-6 space-y-1 bg-white rounded-xl'>
-                <p className='text-6xl'>21</p>
+                <p className='text-6xl'>{[...new Set(books.map(t => t.author))].length}</p>
                 <p className='font-bold text-sm'>Total Authors</p>
                 <RiFileUserFill className='text-app-primary absolute top-6 right-4 text-6xl text-white opacity-40' />
               </div>
               <div className='relative p-6 space-y-1 bg-white rounded-xl'>
-                <p className='text-6xl'>12</p>
+                <p className='text-6xl'>{loans?.filter(t => t.status === "loaned").length}</p>
                 <p className='font-bold text-sm'>Currently Loaned Out</p>
                 <RiExchangeFill className='text-app-primary absolute top-6 right-4 text-6xl text-white opacity-40' />
               </div>
