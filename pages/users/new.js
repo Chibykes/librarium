@@ -33,7 +33,7 @@ export default function UserNew() {
 
         <div className='col-span-4 space-y-8 p-8'>
 
-          <Navbar page="New Book" />
+          <Navbar page="New User" />
 
           <ToastContainer
             position="top-right"
@@ -95,7 +95,7 @@ export default function UserNew() {
                 <textarea
                   name='address'
                   className='block w-full p-3 rounded-md border-2 border-neutral-300 hover:border-app-primary'
-                  placeholder='Short descriotion about book'
+                  placeholder='Enter user address'
                   onChange={(e) => setFormData({...formData, address: e.target.value})}
                   value={formData.address || ""}
                   required
