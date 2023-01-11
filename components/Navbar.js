@@ -7,13 +7,18 @@ import Scan from './Scan';
 
 export default function Navbar({ page }) {
 
-  const [loadCamera, setLoadCamera] = useState(false);
+  const [openScan, setOpenScan] = useState(false);
+  const handleModal = (e) => {
+    if(e.target === document.getElementById('main-modal')){
+      setOpenScan(false);
+    }
+  }
 
   return (
     <div className='print:hidden flex items-center justify-end p-6 gap-6 bg-white rounded-3xl border-none border-neutral-200'>
       <p className='mr-auto font-bold text-2xl'>{page}</p>
 
-      <Link className="flex flex-col items-center gap-1 text-app-primary" onClick={() => setLoadCamera(!loadCamera)} href="#">
+      <Link className="flex flex-col items-center gap-1 text-app-primary" onClick={() => setOpenScan(!openScan)} href="#">
         <BiQrScan className='text-xl' />
         {/* <span className='text-xs font-bold'>Scan</span> */}
       </Link>
@@ -26,8 +31,8 @@ export default function Navbar({ page }) {
         {/* <span className='text-xs font-bold'>Profile</span> */}
       </Link>
 
-      {loadCamera && 
-        <div className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-[#0003] z-[9999]' onClick={() => setLoadCamera(!loadCamera)}>
+      {openScan && 
+        <div id="main-modal" className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-[#0003] z-[9999]' onClick={handleModal}>
           <div className='w-1/3 bg-white p-6 rounded-lg'>
             <Scan />
           </div>

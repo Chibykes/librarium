@@ -2,29 +2,59 @@ import Head from 'next/head';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from '../../components/Sidebar';
 import Navbar from '../../components/Navbar';
 import genRandomString from '../../hooks/genRandomString';
+import { useRouter } from 'next/router';
 
 export default function BookNew() {
-
+  
   const [formData, setFormData] = useState({bookid: `BK${genRandomString(4)}`, createdAt: new Date().toDateString()});
+  const router = useRouter();
+  const { id } = router.query;
+
+  
+  useEffect(() => {
+    let books = JSON.parse(localStorage.getItem('books')) || [];
+    books.find(book => {
+      if(book.bookid === id) return setFormData(book);
+    })
+  },[id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let books = JSON.parse(localStorage.getItem('books')) || [];
-    books = [...books, formData];
+    books = books.map(book => {
+      if(book.bookid === id) return formData;
+      return book;
+    });
+
     localStorage.setItem('books', JSON.stringify(books));
 
-    toast('✅ Book Added Successfully');
-    setFormData({bookid: `BK${genRandomString(4)}`, createdAt: new Date().toDateString()});
+    toast('✅ Book updated Successfully');
+
+    setTimeout(() => {
+      router.push('/books');
+    }, 1000)
+  }
+
+  const deleteBook = () => {
+    let books = JSON.parse(localStorage.getItem('books')) || [];
+    books = books.filter(book => book.bookid !== id);
+
+    localStorage.setItem('books', JSON.stringify(books));
+    toast('✅ Book deleted Successfully');
+
+    setTimeout(() => {
+      router.push('/books');
+    }, 1000)
   }
 
   return (
     <div className='w-screen h-screen bg-neutral-100'>
       <Head>
-        <title>New Book</title>
+        <title>Edit Book</title>
       </Head>
 
       <main className="grid grid-cols-5">
@@ -33,7 +63,7 @@ export default function BookNew() {
 
         <div className='col-span-4 space-y-8 p-8'>
 
-          <Navbar page="New Book" />
+          <Navbar page="Edit Book" />
 
           <ToastContainer
             position="top-right"
@@ -53,6 +83,10 @@ export default function BookNew() {
             <form className='p-4 lg:p-16 bg-white lg:w-2/3 mx-auto rounded-lg shadow-2xl space-y-4' 
               onSubmit={handleSubmit}
             >
+
+              <div className='flex justify-end'>
+                <p onClick={deleteBook} className='cursor-pointer inline-block text-sm px-4 py-2 rounded-full font-bold text-white bg-red-700'>Delete</p>
+              </div>
 
               {/* <div className='space-y-2'>
                 <label className='block font-bold text-xs' htmlFor='username'>Image:</label>
@@ -163,7 +197,7 @@ export default function BookNew() {
                   name="submit"
                   type="submit"
                   className='block w-full p-3 rounded-md font-bold bg-app-primary text-center text-white border-2 border-app-primary cursor-pointer'
-                  value="Submit"
+                  value="Update"
                   onClick={handleSubmit}
                 />
               </div>

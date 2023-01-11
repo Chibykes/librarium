@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ImBooks } from 'react-icons/im';
 import { RiExchangeFill, RiFileUserFill } from 'react-icons/ri';
@@ -55,7 +56,11 @@ export default function BooksOverview() {
               {books?.map(({ bookid, title, createdAt }, index) => (
                 <div key={bookid} className='grid grid-cols-12 rounded-xl bg-white text-black'>
                   <p className='col-span-1 text-sm p-3 py-4'>{index+1}</p>
-                  <p className='col-span-5 text-sm p-3 py-4'>{title}</p>
+                  <p className='col-span-5 text-sm p-3 py-4 text-app-light'>
+                    <Link href={`/books/${bookid}`} >
+                      {title}
+                    </Link>
+                  </p>
                   <p className='col-span-2 text-sm p-3 py-4'>{loans.filter(b => b.bookid === bookid)?.length}</p>
                   {loans.reverse().find(b => b.bookid === bookid)?.status === "loaned" ? 
                     <p className='col-span-2 font-bold text-xs p-3 py-4 text-yellow-400'>Loaned out</p> :

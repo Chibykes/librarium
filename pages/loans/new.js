@@ -43,8 +43,10 @@ export default function Dashboard() {
     localStorage.setItem('loans', JSON.stringify(loans));
     toast('✅ Book Loaned Out Successful');
 
-    router.push(`/loans/${formData.loanid}`);
-
+    setTimeout(() => {
+      router.push(`/loans/${formData.loanid}`);
+    }, 1000);
+    
     setFormData({
       loanid: `LB${genRandomString(4)}`,
       createdAt: new Date().toDateString()

@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ImBooks } from 'react-icons/im';
 import { RiExchangeFill, RiFileUserFill } from 'react-icons/ri';
@@ -55,7 +56,11 @@ export default function BooksOverview() {
               {users?.map(({ userid, phone, name, createdAt }, index) => (
                 <div key={userid} className='grid grid-cols-12 rounded-xl bg-white text-black'>
                   <p className='col-span-1 text-sm p-3 py-4'>{index+1}</p>
-                  <p className='col-span-4 text-sm p-3 py-4'>{name}</p>
+                  <p className='col-span-4 text-sm p-3 py-4 text-app-light'>
+                    <Link href={`/users/${userid}`} >
+                      {name}
+                    </Link>
+                  </p>
                   <p className='col-span-3 text-sm p-3 py-4'>{phone}</p>
                   <p className='col-span-2 text-sm p-3 py-4'>{loans.filter(b => b.userid === userid)?.length}</p>
                   <p className='col-span-2 text-sm p-3 py-4'>{createdAt}</p>
